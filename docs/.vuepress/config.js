@@ -52,7 +52,7 @@ module.exports = {
         link: "/",
       },
       { text: "NOTE", link: "/Note/" },
-      { text: "git", link: "/algorithm/" },
+      { text: "git", link: "https://github.com/secret821/liuyan.github.io" },
       { text: "微博", link: "https://weibo.com/u/7346009584" },
     ],
     sidebar: {
