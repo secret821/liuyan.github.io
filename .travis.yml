@@ -1,0 +1,13 @@
+language: node_js
+sudo: required
+node_js:
+  - 14.16.0
+branch: blog-pages
+cache:
+  directories:
+    - node_modules
+before_install:
+  - export TZ='Asia/Shanghai' # 设置时区
+script:
+  - chmod a+x deploy.sh
+  - ./deploy.sh
