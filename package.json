@@ -17,5 +17,6 @@
   },
   "dependencies": {
     "vuepress-plugin-demo-block": "^0.7.2"
-  }
+  },
+  "homepage": "https://1172208932.github.io/myBlog"
 }
