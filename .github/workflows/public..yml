@@ -4,7 +4,7 @@ name: GitHub Actions Build and Deploy Demo
 on:
   push:
     branches:
-      - blog
+      - Blog
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # 运行在ubuntu-latest环境的虚拟机中
@@ -26,6 +26,6 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # GitHub 密钥 ACCESS_TOKEN 是在第二步Settings的Secrets中新增时定义的Name,要保持一致
           # 发布到指定分支
-          BRANCH: gh-pages
+          BRANCH: travis-setup
           # 构建成果所在目录,默认位置都是在根目录
           FOLDER: ./docs/.vuepress/dist
