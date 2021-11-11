@@ -8,7 +8,8 @@ module.exports = {
       "link",
       {
         rel: "icon",
-        href: "//yun.duiba.com.cn/aurora/assets/28757dfc494a84649d1b9e9e9daa3a57420d00cd.jpeg",
+        href:
+          "//yun.duiba.com.cn/aurora/assets/28757dfc494a84649d1b9e9e9daa3a57420d00cd.jpeg",
       },
 
       [
@@ -20,7 +21,8 @@ module.exports = {
       [
         "script",
         {
-          src: "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js",
+          src:
+            "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js",
         },
       ],
       [
@@ -44,7 +46,8 @@ module.exports = {
 
   plugins: ["demo-block"],
   themeConfig: {
-    logo: "//yun.duiba.com.cn/aurora/assets/28757dfc494a84649d1b9e9e9daa3a57420d00cd.jpeg",
+    logo:
+      "//yun.duiba.com.cn/aurora/assets/28757dfc494a84649d1b9e9e9daa3a57420d00cd.jpeg",
     nav: [
       // 导航栏配置
       {
@@ -52,11 +55,13 @@ module.exports = {
         link: "/",
       },
       { text: "NOTE", link: "/Note/" },
+      { text: "DEMO", link: "/DEMO/" },
       { text: "git", link: "https://github.com/secret821/liuyan.github.io" },
       { text: "微博", link: "https://weibo.com/u/7346009584" },
     ],
     sidebar: {
       "/Note/": ["react", "微信小程序"],
+      "/DEMO/": ["动态背景图", "时钟"],
     }, // 侧边栏配置
     sidebarDepth: 2, // 侧边栏显示2级
   },
