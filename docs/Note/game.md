@@ -1,4 +1,4 @@
-# game
+<!-- # game
 
 ## EventEmitter的前端实现
 
@@ -687,4 +687,4 @@ const b: TestB = {
 
   }
 }
-```
+``` -->
