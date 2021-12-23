@@ -1,7 +1,7 @@
 module.exports = {
   title: "留简",
   description: "Just Text",
-  // base: "/myBlog/",
+  base: "/myBlog/",
   head: [
     // 注入到当前页面的 HTML <head> 中的标签
     [
