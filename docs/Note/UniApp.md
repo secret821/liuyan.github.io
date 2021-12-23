@@ -372,15 +372,6 @@ Angular  5
 
 Vue复习  2
 
-## UniApp02
-
-> 讲师联系方式 VX: **18800108022**
->
-> 本周内容:  UniApp
->
-> - 周1 ~ 周3 : 基础知识
-> - 周4~周5: 制作一个UniApp项目
-
 ## 复习
 
 什么是UniApp?
@@ -952,23 +943,7 @@ export default {
  }
 }
 </style>
-
 ```
-
-## 作业
-
-接口地址: <http://101.96.128.94:9999/data/product/list.php?pno=1>
-
-- 返回值中有最大页数 和 当前页
-
-- 返回值中的图片地址为相对路径, 需要人为拼接前缀域名才可展示
-
-  <http://101.96.128.94:9999/>
-
-- 页面的样式 同新闻练习 即可
-
-- 需要完成:`加载更多`, `下拉刷新`, `回到顶部`, `按钮的动态展示`
-
 # UniApp03
 
 ## 跨域
@@ -1407,26 +1382,6 @@ export default {
 <template> <view>  <!-- 列表组件: uList -->  <uni-list>   <uni-list-item title="账号与安全" showArrow clickable></uni-list-item>   <uni-list-item    clickable    title="青少年模式"    rightText="未开启"    showArrow   ></uni-list-item>   <uni-list-item    title="微信8.0.11主要更新"    showArrow    clickable    note="08月26日"   ></uni-list-item>   <uni-list-item    @switchChange="switchChanged"    :switchChecked="true"    title="接受新消息通知"    showSwitch   ></uni-list-item>   <uni-list-item    thumb="/static/logo.png"    :ellipsis="1"    thumbSize="lg"    showBadge    badgeText="99"    title="大师傅阿斯顿发生地方撒地方第三方阿斯蒂芬安抚第三方撒发的阿斯蒂芬阿斯顿发"   ></uni-list-item>   <uni-list-item    :extraIcon="{ color: 'green', size: '22', type: 'gear' }"    showExtraIcon    title="设置"   ></uni-list-item>   <uni-list-item    title="标题"    note="note"    rightText="右侧文本"    showArrow    showSwitch    thumb="/static/logo.png"    showBadge    badgeText="99"    direction="column"   ></uni-list-item>   <!-- 如果改为竖向排列, 则宽度自动与父元素剩余空间一样 -->   <uni-list-item direction="column">    <template v-slot:header>     <view style="background-color: #007AFF;">我是头部插槽</view>    </template>    <template v-slot:body>     <view style="background-color: #600;">我是身体插槽</view>    </template>    <template v-slot:footer>     <view style="background-color: #598;">我是脚部插槽</view>    </template>   </uni-list-item>   <uni-list-item direction="column">    <template v-slot:body>     <!-- item自带 padding:12px 15px; 的内边距, 无法通过padding属性修改, 只能通过子元素的 margin 来改动  -->     <view      style="background-color: #007AFF; height: 200rpx; margin: -10px -13px;"     ></view>    </template>   </uni-list-item>  </uni-list> </view></template><script>export default { methods: {  switchChanged(e) {   console.log(e);  } }};</script><style scoped></style>
 ```
 
-## 作业
-
-完成 斗鱼颜值列表制作, 需要带有 下拉刷新 加载更多等功能
-
-接口地址: <https://m.douyu.com/api/room/list?page=1&type=yz>
-
-> 接口带有跨域, 需要用 proxy 解决
->
-> 适配: H5有跨域,  小程序和APP没有跨域, 需要用条件编译解决
-
-注意事项:
-
-如果数据长度不足一页, 会导致无法触发加载更多,
-
-暂时解决方案:  把图片 高度 尽量拉长,  超过一页即可
-
-**明天讲解决方案**
-
-![image-20210831180527147](/Users/duiba/Downloads/Day03 2/UniApp03.assets/image-20210831180527147.png)
-
 # UniApp04
 
 > FTP已上传 `18_UniApp/xuezi.apk`, 这是最终项目的完成品, android软件安装包
@@ -1836,27 +1791,6 @@ export default {
 
 ```
 
-## 第五阶段
-
-由于马上就业, 所以本阶段的项目 更加贴近实际开发的场景:
-
-- 给 接口 和 效果图, 然后完成页面的制作.
-
-> 独立完成项目, 开始会较难, 所以:
->
-> 在制作一个页面时, 老师先完成一次 并且进行视频的录制.
->
-> 之后把 视频 和 代码都发送.
->
-> 同学尝试去独立完成, 如果有不会的 可以参考视频和代码.
-
-## 作业
-
-按照视频 效果图,  开始制作项目
-
-- 完成基本框架的搭建:  tab标签栏切换页面的效果
-- 完成 `我的` 页面的制作:  主要练习样式布局
-
 # UniApp05
 
 > 视频网盘地址:
@@ -1864,23 +1798,6 @@ export default {
 > 链接：<https://pan.baidu.com/s/1vIiE_3AHn1hBADXgMpLQyA>
 > 提取码：jgyu
 
-任务:
-
-- 完成首页的制作
-
-- 首页制作完毕的同学, 可以制作 **分类页面**
-
-  接口: <http://101.96.128.94:9999/data/product/list.php?pno=1>
-
-  - 此页面需要完成 下拉刷新, 加载更多 等等功能
-
-- 详情页
-
-  - 此页面的难点是 页面下方的HTML展示, 需要使用 `v-html` 指令
-
-    并且要手动修改 返回值的html, 为图片添加域名前缀: `正则替换`
-
-- 做的快的同学, 可以继续制作 英雄页面
 
 # UniApp06
 
@@ -1889,60 +1806,6 @@ export default {
 > <https://pan.baidu.com/s/1vIiE_3AHn1hBADXgMpLQyA>
 > 提取码：jgyu
 
-任务:
-
-- 完成 **商品详情** 页面制作
-
-- 继续制作 英雄页面
-
-  - 接口1: 左侧菜单内容
-
-    <https://game.gtimg.cn/images/lol/act/img/js/heroList/hero_list.js>
-
-  - 接口2: 右侧详情,  注意结尾要拼接 id 名称
-
-    <https://game.gtimg.cn/images/lol/act/img/js/hero/英雄id.js>
-
-  - 关于头像的显示:
-
-    <https://game.gtimg.cn/images/lol/act/img/champion/英雄alias.png>
-
-- 直播页面
-
-  - 此页面的请求涉及到 **跨域** 问题, 需要配置代理解决, 并且要关注 `条件渲染` 实现同一套代码, 适配不同客户端的状况.
-
-  - 接口1: 获取所有大分类
-
-    <http://capi.douyucdn.cn/api/v1/getColumnList>
-
-  - 接口2: 某大分类下的小分类
-
-    <http://capi.douyucdn.cn/api/v1/getColumnDetail?shortName>=分类名
-
-  - 接口3: 小分类下的房间
-
-    <https://m.douyu.com/api/room/list?page=1&type>=房间类型
-
-## 下周安排
-
-- 周末时间, 把项目制作完毕, 之后进行 **打包** 操作
-
-  - 打包成H5, 发布到服务器上
-  - 打包成APK, 给其他安卓手机安装
-  - 打包成 微信小程序, 进行发布
-
-- React: 下周进行React的学习:   时间线---  Angular -> React -> Vue
-
-  - 南方地区使用较多: 杭州 上海 深圳...
-
-  - 挑战: 下周逐步面试增多, 希望大家面试之余, 能尽量在晚间看视频补课.
-
-  - 提前安装 **最新版** 的 VSCode 工具
-
-  - 提前下载资源, 大概在`下周四`使用
-
-    ```
-    链接：https://pan.baidu.com/s/1MmpfvAa7Y4bLJDH8UTYZrw 
-    提取码：2t6p 
-    --来自百度网盘超级会员V4的分享
-    ```
+链接：https://pan.baidu.com/s/1MmpfvAa7Y4bLJDH8UTYZrw 
+提取码：2t6p 
+ --来自百度网盘超级会员V4的分享
