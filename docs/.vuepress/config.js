@@ -60,8 +60,8 @@ module.exports = {
       { text: "微博", link: "https://weibo.com/u/7346009584" },
     ],
     sidebar: {
-      "/Note/": ["react", "微信小程序"],
-      "/DEMO/": ["动态背景图", "时钟"],
+      "/Note/": ["react", "微信小程序","UniApp"],
+      "/DEMO/": ["动态背景图", "时钟","贪吃蛇","填色游戏","拼图游戏"],
     }, // 侧边栏配置
     sidebarDepth: 2, // 侧边栏显示2级
   },
