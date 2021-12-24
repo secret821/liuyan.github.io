@@ -124,7 +124,7 @@ React 元素是**不可变对象**, 一旦被创建, 无妨更改它的子元素
 
 计时器的例子
 
-```
+``` html
 function tick() {   const element = (     <div>       <h1>Hello, world!</h1>       <h2>{new Date().toLocaleTimeString()}.</h2>     </div>   );   ReactDOM.render(element, document.querySelector('#root')); } setInterval(tick, 1000);
 ```
 
