@@ -8,10 +8,6 @@ ECMA -> ECMAScript ->  ES
 
 ES6 js的第六套标准规范
 
-课后作业
-
- 创建函数，传递任意一个日期，返回这一天是一年中的第几天
-
 例如  getDays（2021，5，18）
 
 ```javascript
