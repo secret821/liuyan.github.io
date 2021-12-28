@@ -391,9 +391,9 @@ wong(); }
 
     const b: TestB = {
          userId: 2222,
-```
 
 }; 
+```
 
 1. 写⼀一个计算时间的装饰器器 代码
 
@@ -416,11 +416,13 @@ wong(); }
 \3. Binder 绑定器器 (binder.ts)
  符号将 AST 中的声明节点与其它声明连接到相同的实体上。符号是语义系统的基本构造块。
 
+```js
 function Symbol(flags: SymbolFlags, name: string) { this.flags = flags; 
  this.name = name; 
  this.declarations = undefined; 
 
 }
+```
 
 SymbolFlags 符号标志是个标志枚举，⽤用于识别额外的符号类别(例例如: 变量量作⽤用域标志 FunctionScopedVariable 或 BlockScopedVariable 等).
 
