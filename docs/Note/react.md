@@ -287,7 +287,14 @@ function tick() {   const element = (     <div>       <h1>Hello, world!</h1>    
 
 ```jsx
 import React, { Component } from "react"
-import ReactDOM from "react-dom" // 学习如何封装真正可复用的Clock组件。 class Clock extends Component {     constructor(props) {         super(props);         this.state = {             date: new Date().toLocaleString()         }     }     componentDidMount() {         this.timer = setInterval(() => {             // 注意1 不能直接修改state             // this.state.date = new Date(); //错误             // 注意2： setState()是异步的             this.setState({                 date: new Date().toLocaleString()             })         }, 1000);     }     componentWillUnmount() {         clearInterval(this.timer);     }     render() {         // 修改状态之后,会重新调用render         return (             <div>                 <h3>当前时间为:{this.state.date}</h3>             </div>         );     } } ReactDOM.render(<Clock />, document.querySelector('#root'));
+import ReactDOM from "react-dom" // 学习如何封装真正可复用的Clock组件。 
+class Clock extends Component {     constructor(props) {         super(props);         this.state = {             date: new Date().toLocaleString()         }     }
+     componentDidMount() {         this.timer = setInterval(() => {             // 注意1 不能直接修改state             // 
+     this.state.date = new Date(); //错误             // 注意2： setState()是异步的             
+     this.setState({                 date: new Date().toLocaleString()             })         }, 1000);     }
+          componentWillUnmount() {         clearInterval(this.timer);     }     render() {
+                     // 修改状态之后,会重新调用
+                     render         return (             <div>                 <h3>当前时间为:{this.state.date}</h3>             </div>         );     } } ReactDOM.render(<Clock />, document.querySelector('#root'));
 ```
 
 ### 生命周期
