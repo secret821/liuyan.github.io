@@ -2,7 +2,7 @@ Arguments:
   C:\Program Files\nodejs\node.exe C:\Users\ly\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add vue-cli-plugin-vit -D --tilde
 
 PATH: 
-  C:\Users\ly\Desktop\新建文件夹\projects\myBlog\secret821.github.io\node_modules\.bin;C:\Users\ly\Desktop\新建文件夹\projects\myBlog\node_modules\.bin;C:\Users\ly\Desktop\新建文件夹\projects\node_modules\.bin;C:\Users\ly\Desktop\新建文件夹\node_modules\.bin;C:\Users\ly\Desktop\node_modules\.bin;C:\Users\ly\node_modules\.bin;C:\Users\node_modules\.bin;C:\node_modules\.bin;C:\Program Files\nodejs;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;%NODE_PATH%;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\Users\ly\AppData\Local\Microsoft\WindowsApps;;C:\Users\ly\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ly\AppData\Roaming\npm
+  C:\Users\ly\Desktop\新建文件夹\projects\myBlog\secret821\node_modules\.bin;C:\Users\ly\Desktop\新建文件夹\projects\myBlog\node_modules\.bin;C:\Users\ly\Desktop\新建文件夹\projects\node_modules\.bin;C:\Users\ly\Desktop\新建文件夹\node_modules\.bin;C:\Users\ly\Desktop\node_modules\.bin;C:\Users\ly\node_modules\.bin;C:\Users\node_modules\.bin;C:\node_modules\.bin;C:\Program Files\nodejs;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;%NODE_PATH%;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\Users\ly\AppData\Local\Microsoft\WindowsApps;;C:\Users\ly\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ly\AppData\Roaming\npm
 
 Yarn version: 
   1.22.19
@@ -47,7 +47,7 @@ npm manifest:
     "dependencies": {
       "vuepress-plugin-demo-block": "^0.7.2"
     },
-    "homepage": "https://secret821/secret821.github.io"
+    "homepage": "https://secret821/secret821"
   }
 
 yarn manifest: 

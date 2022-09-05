@@ -27,6 +27,6 @@ git config --local user.email "826148658@qq.com"
 
 # 如果使用 travis 持续集成
 # git push -f https://github.com/secret821/liuyan.github.io.git
-git push -f https://${GITHUB_TOKEN}@github.com/secret821/secret821.github.io master:travis-setup
+git push -f https://${GITHUB_TOKEN}@github.com/secret821/secret821 master:travis-setup
 
 cd -
