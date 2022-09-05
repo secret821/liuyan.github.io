@@ -1788,6 +1788,234 @@ function Select() {
 }
 ```
 
+### useRequest
+生命周期
+useRequest 提供了以下几个生命周期配置项，供你在异步函数的不同阶段做一些处理。
+● onBefore：请求之前触发
+● onSuccess：请求成功触发
+● onError：请求失败触发
+● onFinally：请求完成触发
+刷新（重复上一次请求）
+useRequest 提供了 refresh 和 refreshAsync 方法，使我们可以使用上一次的参数，重新发起请求。
+假如在读取用户信息的场景中
+1. 我们读取了 ID 为 1 的用户信息 run(1)
+2. 我们通过某种手段更新了用户信息
+3. 我们想重新发起上一次的请求，那我们就可以使用 refresh 来代替 run(1)，这在复杂参数的场景中是非常有用的
+```js
+import { useRequest } from 'ahooks';
+import Mock from 'mockjs';
+import React, { useEffect } from 'react';
+
+function getUsername(id: number): Promise<string> {
+  console.log('use-request-refresh-id', id);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(Mock.mock('@name'));
+    }, 1000);
+  });
+}
+
+export default () => {
+  const { data, loading, run, refresh } = useRequest((id: number) => getUsername(id), {
+    manual: true,
+  });
+
+  useEffect(() => {
+    run(1);
+  }, []);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+  return (
+    <div>
+      <p>Username: {data}</p>
+      <button onClick={refresh} type="button">
+        Refresh
+      </button>
+    </div>
+  );
+};
+```
+#### 立即变更数据
+useRequest 提供了 mutate, 支持立即修改 useRequest 返回的 data 参数。
+mutate 的用法与 React.setState 一致，支持 mutate(newData) 和 mutate((oldData) => newData) 两种写法。
+下面的示例，我们演示了一种 mutate 的应用场景。
+我们修改了用户名，但是我们不希望等编辑接口调用成功之后，才给用户反馈。而是直接修改页面数据，同时在背后去调用修改接口，等修改接口返回之后，另外提供反馈。
+
+基础网络请求
+```js
+import { useRequest } from '@umijs/hooks';  function getUsername() {   
+    return Promise.resolve('jack'); }  
+export default () => {   
+    const { data, error, loading } = useRequest(getUsername)      
+    if (error) return <div>failed to load</div>   
+    if (loading) return <div>loading...</div>   
+    return <div>Username: {data}</div> 
+} 
+```
+这是一个最简单的网络请求示例。在这个例子中 useRequest 接收了一个 Promise 函数。在组件初始化时，会自动触发 getUsername 执行，并自动管理 data 、 loading 、 error 等数据，我们只需要根据状态来写相应的 UI 实现即可。
+手动请求
+对于“写”请求，我们一般需要手动触发，比如添加用户，编辑信息，删除用户等等。 useRequest 只需要配置 manual = true ，即可阻止初始化执行。只有触发 run 时才会开始执行。
+```js
+import { useRequest } from '@umijs/hooks';
+​
+export default () => {
+  const { run, loading } = useRequest(changeUsername, {manual: true})
+  
+  return (
+    <Button onClick={() => run('new name')} loading={loading}>
+       Edit
+    </Button>
+    )
+}
+```
+#### 轮询
+对于需要保持新鲜度的数据，我们通常需要不断发起网络请求以更新数据。 useRequest 只要配置 poilingInterval 即可自动定时发起网络请求。
+```js
+import { useRequest } from '@umijs/hooks';
+​
+export default () => {
+  const { data } = useRequest(getUsername, { pollingInterval: 1000 })
+​
+  return <div>Username: {data}</div>
+}
+```
+同时通过设置 pollingWhenHidden ，我们可以智能的实现在屏幕隐藏时，暂停轮询。等屏幕恢复可见时，继续请求，以节省资源。
+当然你也可以通过 run/cancel 来手动控制定时器的开启和关闭。
+
+#### 并行请求
+什么是并行请求？看了下图应该就明白了，也就是同一个接口，我们需要维护多个请求状态。
+示例中的并行请求有几个特点：
+● 删除 n 个不同的用户，则需要维护 n 个请求状态。
+● 多次删除同一个用户，则只需要维护最后一个请求。
+
+useRequest 通过设置 fetchKey ，即可对请求进行分类。相同分类的请求，只会维护一份状态。不同分类的请求，则会维护多份状态。在下面的代码中，我们通过 userId 将请求进行分类，同时我们可以通过 fetches[userId] 拿到当前分类的请求状态！
+```js
+export default () => {
+  const { run, fetches } = useRequest(deleteUser, {
+    manual: true,
+    fetchKey: id => id, // 不同的 ID，分类不同
+  });
+​
+  return (
+    <div>
+      <Button loading={fetches.A?.loading} onClick={() => { run('A') }}>删除 1</Button>
+      <Button loading={fetches.B?.loading} onClick={() => { run('B') }}>删除 2</Button>
+      <Button loading={fetches.C?.loading} onClick={() => { run('C') }}>删除 3</Button>
+    </div>
+  );
+};
+```
+#### 防抖 & 节流
+通常在边输入边搜索的场景中，我们会用到防抖功能，以节省不必要的网络请求。通过 useRequest ，只需要配置一个 debounceInterval ，就可以非常简单的实现对网络请求的节流操作。
+
+在下面的例子中，无论调用了多少次 run ，只会在输入停止后，发送一次请求。
+```js
+import { useRequest } from '@umijs/hooks';
+​
+export default () => {
+  const { data, loading, run, cancel } = useRequest(getEmail, {
+    debounceInterval: 500,
+    manual: true
+  });
+​
+  return (
+    <div>
+      <Select onSearch={run} loading={loading}>
+        {data && data.map(i => <Option key={i} value={i}>{i}</Option>)}
+      </Select>
+    </div>
+  );
+};
+```
+节流与防抖是同样的道理，只需要配置了 throttleInterval ，即可实现节流功能。
+缓存 & SWR & 预加载
+在前面我讲了什么是 SWR，在 SWR 场景下，我们会对接口数据进行缓存，当下次请求该接口时，我们会先返回缓存的数据，同时，在背后发起新的网络请求，待新数据拿到后，重新触发渲染。
+对于一些数据不是经常变化的接口，使用 SWR 后，可以极大提高用户使用体验。比如下面的图片例子，当我们第二次访问该文章时，直接返回了缓存的数据，没有任何的等待时间。同时，我们可以看到“最新访问时间”在 2 秒后更新了，这意味着新的请求数据返回了。
+
+useRequest 通过配置 cacheKey ，即可进入 SWR 模式，相当简单。
+```js
+const { data, loading } = useRequest(getArticle, {
+  cacheKey: 'articleKey',
+});
+```
+同时需要注意，同一个 cacheyKey 的数据是全局共享的。通过这个特性，我们可以实现“预加载”功能。比如鼠标 hover 到文章标题时，我们即发送读取文章详情的请求，这样等用户真正点进文章时，数据早已经缓存好了。
+屏幕聚焦重新请求
+通过配置 refreshOnWindowFocus ，我们可以实现，在屏幕重新聚焦或可见时，重新发起网络请求。这个特性有什么用呢？它可以保证多个 tab 间数据的同步性。也可以解决长间隔之后重新打开网站的数据新鲜度问题。
+这里借用 swr 的一个图来说明问题。
+
+集成请求库
+考虑到使用便捷性， useRequest 集成了 umi-request。如果第一个参数不是 Promise，我们会通过 umi-request 来发起网络请求。
+当然如果你想用 axios，也是可以的，通过 requstMethod 即可定制你自己的请求方法。
+```js
+// 用法 1
+const { data, error, loading } = useRequest('/api/userInfo');
+​
+// 用法 2
+const { data, error, loading } = useRequest({
+  url: '/api/changeUsername',
+  method: 'post',
+});
+​
+// 用法 3
+const { data, error, loading, run } = useRequest((userId)=> `/api/userInfo/${userId}`);
+​
+// 用法 4
+const { loading, run } = useRequest((username) => ({
+  url: '/api/changeUsername',
+  method: 'post',
+  data: { username },
+}));
+```
+
+#### 分页
+中台应用中最多的就是表格和表单了。对于一个表格，我们要处理非常多的请求逻辑，包括不限于：
+● page、pageSize、total 管理
+● 筛选条件变化，重置分页，重新发起网络请求
+useRequest 通过配置 paginated = true ，即可进入分页模式，自动帮你处理表格常见逻辑，同时我们对 antd Table 做了特殊支持，只用简单几行代码，就可以实现下面图中这样复杂的逻辑，提效百倍。
+
+```js
+
+import {useRequest} from '@umijs/hooks';
+​
+export default () => {
+  const [gender, setGender] = useState('male');
+  const { tableProps } = useRequest((params)=>{
+    return getTableData({...params, gender})
+  }, {
+    paginated: true,
+    refreshDeps: [gender]
+  });
+​
+  const columns = [];
+​
+  return (
+    <Table columns={columns} rowKey="email" {...tableProps}/>
+  );
+};
+```
+#### 加载更多
+加载更多的场景也是日常开发中常见的需求。在加载场景中，我们一般需要处理：
+● 分页 offset、pageSize 等管理
+● 首次加载，加载更多状态管理
+● 上拉自动加载更多
+● 组件第二次加载时，希望能记录之前的数据，并滚动到之前的位置
+useRequest 通过设置 loadMore = true ，即可进入加载更多模式，配合其它参数，可以帮你处理上面所有的逻辑。
+```js
+const { data, loading, loadMore, loadingMore } = useRequest((d) => getLoadMoreList(d?.nextId, 3), {
+  loadMore: true,
+  cacheKey: 'loadMoreDemoCacheId',
+  fetchKey: d => `${d?.nextId}-`,
+});
+```
+当然我前面也说了， useReqeust 的功能只有你想不到，没有它没有的。哈哈哈~
+除了上面的特性，我们还有一些其它的能力，可以在文档中发现。比如 loadingDelay。
+loadingDelay
+通过设置 loadingDelay ，延迟 loading 变为 true 的时间，当请求很快响应时，可以有效避免 loading 变化导致的抖动。
+
+
+
 ## 注意事项
 
 Hook 就是 JavaScript 函数，使用规则：
