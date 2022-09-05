@@ -1,1 +1,0 @@
-module.exports = { outputDir: 'dist', publicPath: process.env.NODE_ENV === 'production' ? '/[secret821.github.io]/' : '/' }
