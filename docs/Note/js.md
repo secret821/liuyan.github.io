@@ -94,13 +94,14 @@ console.log(c+a+b);//'tedu2true'
 
 eg:
 
+
 var title = 'iphone';
 
 var price = 4999;
 
 console.log('标题:   '+title+'    价格:  '  +price);
 
-//练习：价格从后端获取到了一个用户名和手机号码，最后打印
+练习：价格从后端获取到了一个用户名和手机号码，最后打印
 
 var userName = 'tao';
 
